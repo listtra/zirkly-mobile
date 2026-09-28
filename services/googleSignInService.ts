@@ -1,3 +1,4 @@
+import { clientHeaders } from './httpHeaders';
 import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 import Constants from 'expo-constants';
 
@@ -153,6 +154,9 @@ export class GoogleSignInService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          // This endpoint writes the SIGNUP row for a brand-new account, so
+          // the language it records comes from here or not at all.
+          ...clientHeaders(),
           // Cloudflare Turnstile was solved in the WebView before it handed
           // sign-in over to the native SDK; this is that proof, exchanged for
           // a ticket so it survives the trip.

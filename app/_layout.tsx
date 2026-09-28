@@ -1,5 +1,4 @@
 import SplashScreen from '@/components/SplashScreen';
-import { useColorScheme } from '@/hooks/useColorScheme';
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -42,6 +41,23 @@ function AppStatusBar({ splashVisible }: { splashVisible: boolean }) {
   );
 }
 
+// React Navigation's own theme. This has to follow the web app's theme rather
+// than the device's, because its `dark` flag is what decides the status bar
+// style each newly presented screen asks for on iOS. Driven by the device
+// scheme, a dark-mode phone showing a light page made every pushed screen
+// (Notifications / Messages / Profile) request white status bar icons over a
+// near-white page, overriding the root <StatusBar> above until a theme toggle
+// forced it to re-assert. The initial screen never showed it — nothing is
+// pushed to reach it.
+function AppNavigationTheme({ children }: { children: React.ReactNode }) {
+  const { webTheme } = useWebTheme();
+  return (
+    <ThemeProvider value={webTheme === 'dark' ? DarkTheme : DefaultTheme}>
+      {children}
+    </ThemeProvider>
+  );
+}
+
 type RootLayoutContentProps = {
   onWebViewReady?: () => void;
 };
@@ -72,7 +88,6 @@ function RootLayoutContent({ onWebViewReady }: RootLayoutContentProps) {
 }
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
   const [loaded] = useFonts({
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
   });
@@ -112,11 +127,11 @@ export default function RootLayout() {
         {/* Main app content */}
         <SafeAreaProvider>
           <AuthProvider>
-            <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+            <AppNavigationTheme>
               <View style={{ flex: 1 }}>
                 <RootLayoutContent onWebViewReady={() => setWebViewReady(true)} />
               </View>
-            </ThemeProvider>
+            </AppNavigationTheme>
           </AuthProvider>
         </SafeAreaProvider>
 

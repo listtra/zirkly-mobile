@@ -4,7 +4,7 @@ export default {
   expo: {
     name: "Zirkly",
     slug: "zirkly-mobile-app",
-    version: "1.0.9",
+    version: "1.0.10",
     orientation: "portrait",
     icon: "./assets/images/icon3.png",
     scheme: "zirkly",
@@ -21,7 +21,7 @@ export default {
       entitlements: {
         "com.apple.developer.applesignin": ["Default"],
       },
-      buildNumber: "39",
+      buildNumber: "40",
       supportsTablet: true,
       statusBarStyle: "dark-content",
       statusBarBackgroundColor: "#F9FAFB",
@@ -77,7 +77,7 @@ export default {
           category: ["BROWSABLE", "DEFAULT"],
         },
       ],
-      versionCode: 39,
+      versionCode: 40,
       edgeToEdgeEnabled: false,
       statusBarStyle: "dark-content",
       softInputMode: "adjustResize",
@@ -98,6 +98,7 @@ export default {
       "expo-secure-store",
       "expo-router",
       "expo-apple-authentication",
+      "expo-localization",
       "expo-notifications",
       "@react-native-firebase/app",
       "@react-native-firebase/messaging",
@@ -160,7 +161,7 @@ export default {
     },
 
     extra: {
-      apiUrl: "https://backend.listtra.com",
+      apiUrl: "https://dev.zirkly.com",
       googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
       googleWebClientId: process.env.GOOGLE_WEB_CLIENT_ID,
       googleAndroidClientId: process.env.GOOGLE_ANDROID_CLIENT_ID,

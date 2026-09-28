@@ -28,7 +28,7 @@ import OfflineScreen from "./OfflineScreen";
 
 const BASE_URL = __DEV__
   ? "http://localhost:3000"
-  : "https://www.zirkly.com.au";
+  : "https://listtra-git-preview-listtra.vercel.app";
 
 export interface PersistentWebViewRef {
   refresh: () => void;
@@ -681,7 +681,12 @@ const PersistentWebView = forwardRef<PersistentWebViewRef, Props>(
       );
     }, []);
 
-    const INTERNAL_DOMAINS = ["zirkly.com", "staging.zirkly.com", "localhost"];
+    const INTERNAL_DOMAINS = [
+      "zirkly.com.au",
+      "zirkly.com",
+      "vercel.app",
+      "localhost",
+    ];
 
     const handleNavigationRequest = (request: any) => {
       const url = request.url;

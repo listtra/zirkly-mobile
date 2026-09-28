@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
 
+import { clientHeaders } from './httpHeaders';
+
 const API_URL = Constants?.expoConfig?.extra?.apiUrl;
 
 // Function to get API instance with auth token
@@ -10,6 +12,7 @@ const getApiInstance = async (token: string) => {
     headers: {
       Authorization: `Bearer ${token}`,
       'Content-Type': 'application/json',
+      ...clientHeaders(),
     },
   });
 };

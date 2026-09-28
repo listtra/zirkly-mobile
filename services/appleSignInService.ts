@@ -1,3 +1,4 @@
+import { clientHeaders } from './httpHeaders';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
@@ -149,6 +150,9 @@ export class AppleSignInService {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    // This endpoint writes the SIGNUP row for a brand-new
+                    // account, so the language it records comes from here.
+                    ...clientHeaders(),
                     // Turnstile was solved in the WebView before it handed
                     // sign-in over to the native SDK; this is that proof.
                     ...(turnstileTicket ? { 'CF-Turnstile-Ticket': turnstileTicket } : {}),
